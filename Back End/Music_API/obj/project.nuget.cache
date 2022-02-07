@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "PFQQw5eHtarwHXfRv+sOOfPEGUjTo96DugHe/n6qYmwuCdC8/rjaD9GugBNBy2zioeITi5xV7CT/JmUKm51jVg==",
+  "success": true,
+  "projectFilePath": "C:\\Wonga_Assesments\\Music App\\React_.Net\\Back End\\Music_API\\Music_API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Brent\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.11.1\\microsoft.visualstudio.azure.containers.tools.targets.1.11.1.nupkg.sha512"
+  ],
+  "logs": []
+}
