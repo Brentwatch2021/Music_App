@@ -2,7 +2,7 @@
   "name": "music_app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/Brentwatch2021/Music_App/blob/main/Front%20End/music_app/public/index.html",
+  "homepage": "https://github.com/Brentwatch2021/Music_App",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",
