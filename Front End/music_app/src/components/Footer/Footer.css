@@ -1,0 +1,25 @@
+.media-controls
+{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.media-controls input
+{
+    color: orange;
+}
+
+.media-controls i
+{
+    color: orange;
+    padding-left: 18px;
+    font-size: 35px;
+}
+
+.media-controls i:hover
+{
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+

@@ -1,0 +1,63 @@
+.Header
+{
+    position: fixed;
+    height: 20vh;
+    width: 100vw;
+    background-color: red;
+    display: grid;
+    grid-template-columns: 0.2fr 1fr 0.2fr;
+}
+
+.search-wrapper
+{
+    background-color: blue;
+    align-items: center;
+    padding-top: 25px;
+    
+}
+
+
+  
+  input[type="radio"] {
+    display: none;
+    border: solid 2px red;
+  }
+  
+  input[type="radio"]:checked + label {
+    border: solid 2px green;
+  }
+
+  .btn-primary:hover
+  {
+      background-color: orange;
+  }
+
+  .pill_filter
+  {
+      border: solid 2px #0d6efd;
+      border-radius: 15px;
+      padding: 5px;
+      
+      min-width: 55px;
+  }
+
+  .pill_filter:hover
+  {
+    opacity: 0.5;
+    cursor: pointer;
+  }
+
+  .pill_filter_active
+  {
+    background-color: #0d6efd;
+  }
+
+
+.search-wrapper input
+{
+    width: 400px;
+    height: 50px;
+    border: none;
+    border-radius: 25px;
+    padding: 15px;
+}

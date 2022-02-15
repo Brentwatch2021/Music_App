@@ -17,3 +17,4 @@ C:\Wonga_Assesments\Music App\React_.Net\Back End\Music_API\obj\Debug\netcoreapp
 C:\Wonga_Assesments\Music App\React_.Net\Back End\Music_API\obj\Debug\netcoreapp3.1\Music_API.dll
 C:\Wonga_Assesments\Music App\React_.Net\Back End\Music_API\obj\Debug\netcoreapp3.1\Music_API.pdb
 C:\Wonga_Assesments\Music App\React_.Net\Back End\Music_API\obj\Debug\netcoreapp3.1\Music_API.genruntimeconfig.cache
+C:\Wonga_Assesments\Music App\React_.Net\Back End\Music_API\bin\Debug\netcoreapp3.1\ind.html
