@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Music_API;
 
 namespace Music_API.Controllers
 {
@@ -24,16 +25,13 @@ namespace Music_API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<string> Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            List<string> forcasts = new List<string>();
+            forcasts.Add("howzit");
+            forcasts.Add("druk");
+
+            return forcasts;
         }
     }
 }

@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  musicapiv4:
+    image: ${DOCKER_REGISTRY-}musicapiv4
+    build:
+      context: .
+      dockerfile: MusicAPIV4/Dockerfile
+  sqldb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+        - SA_PASSWORD=2Secure*Password2
+        - ACCEPT_EULA=Y
+    ports:
+        - "1442:1433"     

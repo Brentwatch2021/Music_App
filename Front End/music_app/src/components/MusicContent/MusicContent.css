@@ -1,0 +1,28 @@
+
+.custom-music-content-row
+{
+    background-image: linear-gradient(to right top, #f3f6ed, #9edec5, #00c2d9, #009aff, #4e56f0);
+    /* height: 20rem; */
+    border-radius: 25px;
+    border: solid 2px white;
+    overflow-y: auto;
+    margin-top: 8.2rem;   
+}
+
+
+.Detail-View
+{
+    width: 520px;
+    height: 430px;
+    background-color: purple;
+    top: 25vh;
+    right: 50vw;
+    position: fixed;
+    
+}
+
+body
+{
+    /*background-image: linear-gradient(to right top, #f3f6ed, #9edec5, #00c2d9, #009aff, #4e56f0);*/
+    /* margin-bottom: 600px; */
+}

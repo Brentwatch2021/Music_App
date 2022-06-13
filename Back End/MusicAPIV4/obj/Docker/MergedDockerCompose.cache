@@ -1,0 +1,23 @@
+services:
+  musicapiv4:
+    build:
+      context: C:\Wonga_Assesments\Music App\React_.Net\Back End\MusicAPIV4
+      dockerfile: MusicAPIV4/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: https://+:443;http://+:80
+    image: musicapiv4
+    ports:
+    - target: 80
+    - target: 443
+    volumes:
+    - C:\Users\Brent\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+  sqldb:
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: 2Secure*Password2
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    ports:
+    - published: 1442
+      target: 1433
+version: '3.4'

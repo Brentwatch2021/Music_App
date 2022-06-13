@@ -1,0 +1,85 @@
+{
+  "Artists": [
+    {
+      "id": 0.18794051230224995,
+      "name": "awees",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.3646166817311325,
+      "name": "AWENESS",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.3809612338417776,
+      "name": "Blink 182",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.9861055513262054,
+      "name": "Queen 2",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.6004331503037101,
+      "name": "fdsdg",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.3350283906156424,
+      "name": "Sum 41",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.9072516584107404,
+      "name": "Tweak",
+      "cover_URL": ""
+    }
+  ],
+  "Albums": [
+    {
+      "id": 0.002452581755330696,
+      "name": "wadwda",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.41785977384515105,
+      "name": "The Romantic Lure of Possum Worship",
+      "cover_URL": ""
+    }
+  ],
+  "Songs": [
+    {
+      "id": 0.4000647104203148,
+      "name": "dawawd",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.18337204008466967,
+      "name": "aweness",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.5427973598743525,
+      "name": "Barbie Girl",
+      "cover_URL": ""
+    }
+  ],
+  "Genres": [
+    {
+      "id": 2342,
+      "name": "Rock",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.35364720787547754,
+      "name": "Rocks",
+      "cover_URL": ""
+    },
+    {
+      "id": 0.6505967547213747,
+      "name": "DubStep",
+      "cover_URL": ""
+    }
+  ]
+}
