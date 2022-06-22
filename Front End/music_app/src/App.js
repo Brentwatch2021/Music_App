@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState,useReducer } from 'react'
 import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header/Header';
@@ -17,10 +17,70 @@ const initialFieldValues = {
   File: null
 }
 
-function App() {
-  const axios = require('axios');
+const axios = require('axios');
 
-  const [artists, setArtists] = useState([]);
+const reducer = (state, action) => {
+  const URL = 'http://localhost:3000/Artists';
+
+  switch(action.type)
+  {
+    case 'Query_Artists':
+    axios.get(URL)
+    .then (resp => {
+      return { ...state,artists:resp.data,originalArtists:resp.data };
+    })
+    .catch(err => console.log(err));
+    break
+    case 'Add New Artist':
+    axios.post(URL,action.payload)
+    .then(resp => {
+      //refreshContent();
+      action.payloadRefresh();
+    })
+    break
+    case 'Update Artist':
+      axios.put(`${URL}/${action.payload.id}`,action.payload)
+      .then(resp => {
+        //refreshContent();
+        action.payloadRefresh();
+      })
+    break
+    case 'Remove Artist':
+      axios.delete(`${URL}/${action.payload.id}`, {
+            id: action.payload.id,
+            name: '',
+            cover_URL:''
+        })
+        .then(resp => {
+            console.log(resp.data);
+            action.payloadRefresh();
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    break
+    default:
+      throw new Error();
+  }
+}
+
+const ACTION = {
+  QUERY_ARTISTS: 'Query_Artists',
+  ADD_NEW_ARTIST: 'Add New Artist',
+  UPDATE_ARTIST: 'Update Artist',
+  REMOVE_ARTIST: 'Remove Artist',
+}
+
+function App() {
+  
+
+  const [state,dispatch] = useReducer(reducer,
+                                              {
+                                                 artists: [],
+                                                 originalArtists: [],
+                                              });
+
+  const [artistss, setArtists] = useState([]);
   const [originalArtists, setOriginalArtists] = useState([]);
 
   const [albums, setAlbums] = useState([]);
@@ -50,6 +110,7 @@ function App() {
   ];
 
   const getArtists = e => {
+    //dispatch({type:ACTION.QUERY_ARTISTS});
     axios.get(`http://${ip}:${port}/artists`)
       .then(resp => {
         setArtists(resp.data);
@@ -120,7 +181,7 @@ function App() {
   //ModalValues={modalValues} ModalValuesHook={setModalValues}
   const Search = (query) => {
     if (query !== "") {
-      const filteredArtists = artists.filter(artist => artist.name.toLowerCase().includes(query.toLowerCase()));
+      const filteredArtists = artistss.filter(artist => artist.name.toLowerCase().includes(query.toLowerCase()));
       setArtists(filteredArtists);
 
       const filteredAlbums = albums.filter(album => album.name.toLowerCase().includes(query.toLowerCase()));
@@ -140,7 +201,7 @@ function App() {
   return (
     <div className="App">
       <Header SearchMethod={Search} CurrentFilter={filterSelected} FilterSelector={setActiveFilter} />
-      <MusicContent Artists={artists} Albums={albums} Genres={genres} ModeTypeHook={setTheModalToCreate} Songs={songs} ModalModeToCreateValue={theModalModeToCreate} ModalModeToCreateHook={setTheModalModeToCreate} ModalVisibilityTrigger={setModalShow} CurrentFilter={filterSelected} ModalValues={modalValues} ModalValuesHook={setModalValues} />
+      <MusicContent Artists={artistss} Albums={albums} Genres={genres} ModeTypeHook={setTheModalToCreate} Songs={songs} ModalModeToCreateValue={theModalModeToCreate} ModalModeToCreateHook={setTheModalModeToCreate} ModalVisibilityTrigger={setModalShow} CurrentFilter={filterSelected} ModalValues={modalValues} ModalValuesHook={setModalValues} />
 
       <Footer ShowModalProp={isModalShowing} ShowModalFunc={setModalShow} />
 
@@ -159,7 +220,7 @@ function App() {
           })
         }
       </SpeedDial>
-      <Music_Modal IP={ip} Port={port} RefreshContent={refreshContent} ModalModeToCreateValue={theModalModeToCreate} ModalModeToCreateHook={setTheModalModeToCreate} Showing={isModalShowing} Modal={theModalToCreate} VisibilityTrigger={setModalShow} ModalValues={modalValues} ModalValuesHook={setModalValues} />
+      <Music_Modal Action={ACTION} State={state} Dispatch={dispatch} IP={ip} Port={port} RefreshContent={refreshContent} ModalModeToCreateValue={theModalModeToCreate} ModalModeToCreateHook={setTheModalModeToCreate} Showing={isModalShowing} Modal={theModalToCreate} VisibilityTrigger={setModalShow} ModalValues={modalValues} ModalValuesHook={setModalValues} />
     </div>
   );
 }
