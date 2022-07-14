@@ -1,8 +1,8 @@
-# Getting Started with Create React App
+# Music Catalog
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple music catalog to perform CRUD Operations
 
-## Available Scripts
+## Technology Stack
 
 In the project directory, you can run:
 

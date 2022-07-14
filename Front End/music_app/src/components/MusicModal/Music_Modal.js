@@ -73,7 +73,7 @@ function Music_Modal(props)
     const modalType = props.Modal;
     
     const [artists,setArtists] = useState([]);
-    
+    const [isArtistsLoaded,setloadingSequence] = useState(false);
 
     const showPreview = e => {
         if(e.target.files && e.target.files[0])
@@ -183,32 +183,44 @@ function Music_Modal(props)
                                 <Form.Control type="text" placeholder={modalType} name={'Name'} value={props.ModalValues.Name} onChange={handleNameChange}/>
                                 </FloatingLabel>
 
-    if(modalType === 'Album')
+    let dropDownMenu = <FormControl fullWidth>
+    <InputLabel id="artist-label">Artist</InputLabel>
+    <Select labelId='artist-label' id='artist-label'
+    label='Age' >
+        {artists}
+    </Select>
+    </FormControl>;
+
+
+    if(modalType === 'Album' && !isArtistsLoaded && props.Showing)
     {
         // Load up artists that will be attached to this album
         axios.get(`http://${props.IP}:${props.Port}/artists`)
                                                 .then(resp => {
-                                                    setArtists(resp.data);
+                                                    setloadingSequence(true);
+                                                     let Selections = resp.data.map(data => {
+                                                             return <MenuItem key={data.id} value={data.id}>{data.name}</MenuItem>
+                                                     })
+                                                    setArtists(Selections);
                                                 })
                                                 .catch(error => console.log(error));
                                 
     }
 
-    let dropDownMenu =  <FormControl fullWidth>
-                            <InputLabel id="artist-label">Artist</InputLabel>
-                        <Select labelId='artist-label' id='artist-label'
-                           label='Age' >
-                           {
-                            artists.map(artist => {
-                                return <MenuItem value={artist.id}>{artist.name}</MenuItem>
-                            })
-                           }
-    </Select>
-</FormControl>
+ 
 
-    if(modalType === "Genre")
+    switch(modalType)
     {
+        case 'Genre':
         ImageUploadControl = null;
+        dropDownMenu = null;
+        break;
+        case 'Album':
+        break;
+        case 'Artist':
+        dropDownMenu = null;
+        break;
+        default:
     }
 
     if(mode === 'Remove')
