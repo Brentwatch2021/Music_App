@@ -8,8 +8,8 @@ import useModal from './../UseModalHook/useModal';
 import ModalV2 from './../MusicModal/Music_ModalV2'
 
 const actions = [
-    {icon:<i class="fa-solid fa-hammer"></i>,name:'Add Artist'},
-    {icon:<i class="fa-brands fa-font-awesome"></i>,name:'Add Album'},
+    {icon:<i class=""></i>,name:'Add Artist'},
+    {icon:<i class="far fa-album"></i>,name:'Add Album'},
     {icon:<i class="fa-solid fa-pencil"></i>,name:'Add Song'},
 ]
 

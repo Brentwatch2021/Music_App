@@ -8,6 +8,13 @@ import Music_Modal from './components/MusicModal/Music_Modal';
 import MA_SpeedDial from './components/M_A_Speed_Dial/MA_SpeedDial';
 import SpeedDial from '@mui/material/SpeedDial';
 import { SpeedDialAction, SpeedDialIcon } from '@mui/material';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import ItemView from './components/ItemView/ItemView';
 
 const initialFieldValues = {
   Name: "",
@@ -44,9 +51,9 @@ function App() {
 
   const actions = [
     { icon: <i class="fa-solid fa-palette"></i>, name: 'Add Artist' },
-    { icon: <i class="fa-solid fa-album"></i>, name: 'Add Album' },
+    { icon: <i class="fa-solid fa-record-vinyl"></i>, name: 'Add Album' },
     { icon: <i class="fa-solid fa-dna"></i>, name: 'Add Genre' },
-    { icon: <i class="fa-solid fa-album-circle-plus"></i>, name: 'Add Song' },
+    { icon: <i class="fa-solid fa-music-note"></i>, name: 'Add Song' },
   ];
 
   const getArtists = e => {
@@ -138,29 +145,41 @@ function App() {
   }
 
   return (
+    <Router>
     <div className="App">
-      <Header SearchMethod={Search} CurrentFilter={filterSelected} FilterSelector={setActiveFilter} />
-      <MusicContent Artists={artists} Albums={albums} Genres={genres} ModeTypeHook={setTheModalToCreate} Songs={songs} ModalModeToCreateValue={theModalModeToCreate} ModalModeToCreateHook={setTheModalModeToCreate} ModalVisibilityTrigger={setModalShow} CurrentFilter={filterSelected} ModalValues={modalValues} ModalValuesHook={setModalValues} />
-
-      <Footer ShowModalProp={isModalShowing} ShowModalFunc={setModalShow} />
-
-
-
-      <SpeedDial ariaLabel='SpeedDial'
-        sx={{ position: 'fixed', bottom: 16, right: 16 }} icon={<SpeedDialIcon />}>
-        {
-          actions.map(action => {
-            return <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} onClick={(e) => {
-              // e.preventDefault();
-              // alert("Yes" + e.action);
-              // setModalShow(true);
-              speedDialAction(action.name);
-            }} />;
-          })
+            <Switch>
+          <Route path="/perItemView">
+            <ItemView/>
+          </Route>
+          <Route path="/">
+          <Header SearchMethod={Search} CurrentFilter={filterSelected} FilterSelector={setActiveFilter} />
+          <MusicContent Artists={artists} Albums={albums} Genres={genres} ModeTypeHook={setTheModalToCreate} Songs={songs} ModalModeToCreateValue={theModalModeToCreate} ModalModeToCreateHook={setTheModalModeToCreate} ModalVisibilityTrigger={setModalShow} CurrentFilter={filterSelected} ModalValues={modalValues} ModalValuesHook={setModalValues} />
+          <Footer ShowModalProp={isModalShowing} ShowModalFunc={setModalShow} />
+          <SpeedDial ariaLabel='SpeedDial'
+            sx={{ position: 'fixed', bottom: 16, right: 16 }} icon={<SpeedDialIcon />}>
+            {
+            actions.map(action => {
+              return <SpeedDialAction key={action.name} icon={action.icon} tooltipTitle={action.name} onClick={(e) => {
+                // e.preventDefault();
+                // alert("Yes" + e.action);
+                // setModalShow(true);
+                speedDialAction(action.name);
+              }} />;
+            })
         }
       </SpeedDial>
       <Music_Modal IP={ip} Port={port} RefreshContent={refreshContent} ModalModeToCreateValue={theModalModeToCreate} ModalModeToCreateHook={setTheModalModeToCreate} Showing={isModalShowing} Modal={theModalToCreate} VisibilityTrigger={setModalShow} ModalValues={modalValues} ModalValuesHook={setModalValues} />
+
+          </Route>
+        </Switch>
     </div>
+
+    
+
+
+    </Router>
+
+    
   );
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import './Card.css'
+import { Link } from "react-router-dom";
 
 function Card(props) {
 
@@ -61,6 +62,9 @@ function Card(props) {
     
   }
 
+  const handleCardView = e => {
+
+  }
 
   return (
     <div className='col-12 col-sm-8 col-md-5 col-lg-4 col-xl-3 col-xxl-3 W-50 H-25'>
@@ -76,6 +80,9 @@ function Card(props) {
             </button>
             <button className="bg-secondary" onClick={handleCardRemove}>
               Remove
+            </button>
+            <button className="bg-danger">
+              <Link to={`/perItemView?type=${props.Type}&name=${props.Name}`}>View</Link>
             </button>
         </div>   
     </div>
