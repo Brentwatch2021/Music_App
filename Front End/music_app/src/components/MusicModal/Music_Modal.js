@@ -52,6 +52,8 @@ import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
 import { FormControl, InputLabel, MenuItem } from '@mui/material';
 import Select from '@mui/material/Select'
+import { useDispatch } from 'react-redux';
+import { deleteArtist, loadArtists,createArtist,updateArtist } from '../../redux/actions';
 // import axios from 'axios'
 // import { Card } from '../card/card.component';
 // import Container from 'react-bootstrap/esm/Container';
@@ -67,6 +69,9 @@ const InitialFieldValues = {
 function Music_Modal(props)
 {
     const axios = require('axios');
+
+    let dispatch = useDispatch();
+
 
     // const [modalValues, setModalValues] = useState(initialFieldValues)
     // ModalValues={modalValues} ModalValuesHook={setModalValues}
@@ -109,18 +114,29 @@ function Music_Modal(props)
 
         const URL = `http://${props.IP}:3000/${props.Modal}s`
 
-        axios.post(URL, {
-            id: Math.random(),
-            name: props.ModalValues.Name,
-            cover_URL:''
-        })
-        .then(resp => {
-            console.log(resp.data);
-            props.RefreshContent();
-        })
-        .catch(error => {
-            console.log(error);
-        })
+        // axios.post(URL, {
+        //     id: Math.random(),
+        //     name: props.ModalValues.Name,
+        //     cover_URL:''
+        // })
+        // .then(resp => {
+        //     console.log(resp.data);
+        //     props.RefreshContent();
+        // })
+        // .catch(error => {
+        //     console.log(error);
+
+
+        // })
+
+        // REDUX LOGIC does not take into account other type creations
+        // NBNB
+        //const createArtistt = createArtist({id: Math.random(),name: props.ModalValues.Name,cover_URL:''});
+         dispatch(createArtist({id: Math.random(),
+             name: props.ModalValues.Name,
+             cover_URL:''}));
+             props.RefreshContent();
+
         ResetForm();
         props.VisibilityTrigger(false);
     };
@@ -140,18 +156,27 @@ function Music_Modal(props)
 
     const handleEdit = e => {
         
-        axios.put(`http://${props.IP}:3000/${props.Modal}s/${props.ModalValues.ID}`, {
+        // axios.put(`http://${props.IP}:3000/${props.Modal}s/${props.ModalValues.ID}`, {
+        //     id: props.ModalValues.ID,
+        //     name: props.ModalValues.Name,
+        //     cover_URL:''
+        // })
+        // .then(resp => {
+        //     console.log(resp.data);
+        //     props.RefreshContent();
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // })
+
+        // REDUX
+        dispatch(updateArtist({
             id: props.ModalValues.ID,
             name: props.ModalValues.Name,
             cover_URL:''
-        })
-        .then(resp => {
-            console.log(resp.data);
-            props.RefreshContent();
-        })
-        .catch(error => {
-            console.log(error);
-        })
+        }));
+        props.RefreshContent();
+
         ResetForm();
         props.VisibilityTrigger(false);
     }
@@ -232,18 +257,22 @@ function Music_Modal(props)
     }
 
     const handleRemove = e => {
-        axios.delete(`http://${props.IP}:3000/${props.Modal}s/${props.ModalValues.ID}`, {
-            id: props.ModalValues.ID,
-            name: '',
-            cover_URL:''
-        })
-        .then(resp => {
-            console.log(resp.data);
-            props.RefreshContent();
-        })
-        .catch(error => {
-            console.log(error);
-        })
+        // axios.delete(`http://${props.IP}:3000/${props.Modal}s/${props.ModalValues.ID}`, {
+        //     id: props.ModalValues.ID,
+        //     name: '',
+        //     cover_URL:''
+        // })
+        // .then(resp => {
+        //     console.log(resp.data);
+        //     props.RefreshContent();
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // })
+
+        dispatch(deleteArtist(props.ModalValues.ID));
+        dispatch(loadArtists());
+
         ResetForm();
         props.VisibilityTrigger(false);
     }

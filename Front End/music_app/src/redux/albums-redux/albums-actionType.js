@@ -1,0 +1,5 @@
+export const GET_ALBUMS = "GET_ALBUMS"
+export const LOAD_FILTERED_ALBUMS = "LOAD_FILTERED_ALBUMS"
+export const CREATE_ALBUM = "CREATE_ALBUM"
+export const DELETE_ALBUM = "DELETE_ALBUM"
+export const UPDATE_ALBUM = "UPDATE_ALBUM"

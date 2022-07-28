@@ -16,6 +16,11 @@ import {
 } from "react-router-dom";
 import ItemView from './components/ItemView/ItemView';
 
+// REDUX
+import { useDispatch, useSelector} from 'react-redux';
+import { loadArtists, loadFilteredArtists } from './redux/actions';
+import { loadAlbums } from './redux/albums-redux/albums-actions';
+
 const initialFieldValues = {
   Name: "",
   // Could use default online image for default
@@ -27,8 +32,12 @@ const initialFieldValues = {
 function App() {
   const axios = require('axios');
 
-  const [artists, setArtists] = useState([]);
-  const [originalArtists, setOriginalArtists] = useState([]);
+  // REDUX 
+  let dispatch = useDispatch();
+  const  { artistsFromAPI }  = useSelector(state => state.data);
+  const { albumsData } = useSelector(state => state.albumsData);
+  //const [artists, setArtists] = useState([]);
+  //const [originalArtists, setOriginalArtists] = useState([]);
 
   const [albums, setAlbums] = useState([]);
   const [originalAlbums, setOriginalAlbums] = useState([]);
@@ -53,16 +62,20 @@ function App() {
     { icon: <i class="fa-solid fa-palette"></i>, name: 'Add Artist' },
     { icon: <i class="fa-solid fa-record-vinyl"></i>, name: 'Add Album' },
     { icon: <i class="fa-solid fa-dna"></i>, name: 'Add Genre' },
-    { icon: <i class="fa-solid fa-music-note"></i>, name: 'Add Song' },
+    { icon: <i class="fa-solid fa-music"></i>, name: 'Add Song' },
   ];
 
   const getArtists = e => {
-    axios.get(`http://${ip}:${port}/artists`)
-      .then(resp => {
-        setArtists(resp.data);
-        setOriginalArtists(resp.data);
-      })
-      .catch(error => console.log(error))
+    // axios.get(`http://${ip}:${port}/artists`)
+    //   .then(resp => {
+    //      setArtists(resp.data);
+    //     setOriginalArtists(resp.data);
+    //   })
+    //   .catch(error => console.log(error))
+
+      // REDUX
+      dispatch(loadArtists());
+
   }
 
   const getAlbums = () => {
@@ -72,6 +85,9 @@ function App() {
       setOriginalAlbums(resp.data);
     })
     .catch(error => console.log(error))
+
+    
+    dispatch(loadAlbums());
   }
 
   const getSongs = () => {
@@ -101,6 +117,7 @@ function App() {
 
   useEffect(() => {
    refreshContent();
+   
   }, [])
 
   const speedDialAction = e => {
@@ -127,8 +144,10 @@ function App() {
   //ModalValues={modalValues} ModalValuesHook={setModalValues}
   const Search = (query) => {
     if (query !== "") {
-      const filteredArtists = artists.filter(artist => artist.name.toLowerCase().includes(query.toLowerCase()));
-      setArtists(filteredArtists);
+      const filteredArtists = artistsFromAPI && artistsFromAPI.artistsFromAPI.filter(artist => artist.name.toLowerCase().includes(query.toLowerCase()));
+      //setArtists(filteredArtists);
+      dispatch(loadFilteredArtists(filteredArtists));
+
 
       const filteredAlbums = albums.filter(album => album.name.toLowerCase().includes(query.toLowerCase()));
       setAlbums(filteredAlbums);
@@ -138,7 +157,8 @@ function App() {
 
     }
     else {
-      setArtists(originalArtists);
+      dispatch(loadFilteredArtists(artistsFromAPI.originalartistsFromAPI));
+      //setArtists(originalArtists);
       setAlbums(originalAlbums);
       setSongs(originalSongs);
     }
@@ -153,7 +173,7 @@ function App() {
           </Route>
           <Route path="/">
           <Header SearchMethod={Search} CurrentFilter={filterSelected} FilterSelector={setActiveFilter} />
-          <MusicContent Artists={artists} Albums={albums} Genres={genres} ModeTypeHook={setTheModalToCreate} Songs={songs} ModalModeToCreateValue={theModalModeToCreate} ModalModeToCreateHook={setTheModalModeToCreate} ModalVisibilityTrigger={setModalShow} CurrentFilter={filterSelected} ModalValues={modalValues} ModalValuesHook={setModalValues} />
+          <MusicContent Artists={artistsFromAPI.artistsFromAPI} Albums={albums} Genres={genres} ModeTypeHook={setTheModalToCreate} Songs={songs} ModalModeToCreateValue={theModalModeToCreate} ModalModeToCreateHook={setTheModalModeToCreate} ModalVisibilityTrigger={setModalShow} CurrentFilter={filterSelected} ModalValues={modalValues} ModalValuesHook={setModalValues} />
           <Footer ShowModalProp={isModalShowing} ShowModalFunc={setModalShow} />
           <SpeedDial ariaLabel='SpeedDial'
             sx={{ position: 'fixed', bottom: 16, right: 16 }} icon={<SpeedDialIcon />}>
