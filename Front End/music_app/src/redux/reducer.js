@@ -5,7 +5,7 @@ const initialState = {
     artistFromAPI:{},
     loading: false
 }
-
+// Maybe we can add a class to the redux observer for common actions ActionHelper???
 const artistsReducer = (state = initialState,action) => {
 switch(action.type)
 {
@@ -23,8 +23,18 @@ switch(action.type)
         loading: false,
     }
     case types.DELETE_ARTIST:
+        const idthatwasdeleted = action.payload;
+        // find and remove by id
+        const newRemovedListItem = state.artistsFromAPI.originalartistsFromAPI.filter(a => a.id === idthatwasdeleted);
+        const index = state.artistsFromAPI.originalartistsFromAPI.indexOf(newRemovedListItem[0]);
+        // returns only one below
+        //const newRemovedList = state.artistsFromAPI.originalartistsFromAPI.splice(index,1);
+        
+         const newRemovedList = state.artistsFromAPI.originalartistsFromAPI.splice(index,state.artistsFromAPI.originalartistsFromAPI.length);
+
         return {
             ...state,
+            artistsFromAPI: {  originalartistsFromAPI:newRemovedList,artistsFromAPI:newRemovedList },
             loading:false,
         }
     break;

@@ -175,7 +175,7 @@ function Music_Modal(props)
             name: props.ModalValues.Name,
             cover_URL:''
         }));
-        props.RefreshContent();
+        //props.RefreshContent();
 
         ResetForm();
         props.VisibilityTrigger(false);
@@ -271,7 +271,7 @@ function Music_Modal(props)
         // })
 
         dispatch(deleteArtist(props.ModalValues.ID));
-        dispatch(loadArtists());
+        //dispatch(loadArtists());
 
         ResetForm();
         props.VisibilityTrigger(false);

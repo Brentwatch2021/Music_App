@@ -13,8 +13,9 @@ const getFilteredArtists = (filteredArtists) => (
     }
 )
 
-const artistDeleted = () => ({
-    type:types.DELETE_ARTIST
+const artistDeleted = (id) => ({
+    type:types.DELETE_ARTIST,
+    payload:id,
 })
 
 const artistCreated = (artistCreatedItem) => ({
@@ -90,7 +91,7 @@ export const deleteArtist = (id) => {
         axios.delete(`${API_URI}Artists/${id}`)
         .then(resp => {
             console.log("Just Deleted this item with ID:");
-            dispatch(artistDeleted());
+            dispatch(artistDeleted(id));
         })
         .catch(error => console.log(error))
     }
