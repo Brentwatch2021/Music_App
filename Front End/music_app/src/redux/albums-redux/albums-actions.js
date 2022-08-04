@@ -14,8 +14,9 @@ const getFilteredAlbums = (filteredAlbums) => (
         payload: filteredAlbums,
     });
 
-const albumDeleted = () => ({
+const albumDeleted = (id) => ({
     type:types.DELETE_ALBUM,
+    payload:id,
 });
 
 const albumCreated = (albumCreatedItem) => ({
@@ -54,7 +55,7 @@ export const deleteAlbum = (id) => {
     {
         axios.delete(`${API_URI}Albums/${id}`)
         .then(resp => {
-            dispatch(albumDeleted());
+            dispatch(albumDeleted(id));
         })
     }
 }; 
@@ -75,7 +76,7 @@ export const updateAlbum = (albumUpdatedItem) => {
     {
         axios.put(`${API_URI}Albums/${albumUpdatedItem.id}`)
         .then(resp => {
-            dispatch(albumUpdated());
+            dispatch(albumUpdated(albumUpdatedItem));
         })
         .then(error => console.log(albumUpdated));
     }

@@ -35,6 +35,8 @@ function App() {
   // REDUX 
   let dispatch = useDispatch();
   const  { artistsFromAPI }  = useSelector(state => state.data);
+
+  // this second selector does not update unable to dispatch multiple actions at once RND
   const { albumsData } = useSelector(state => state.albumsData);
   //const [artists, setArtists] = useState([]);
   //const [originalArtists, setOriginalArtists] = useState([]);
@@ -109,6 +111,13 @@ function App() {
   }
 
   const refreshContent = () => {
+    // While integrtating Redux into our app I have clearly been a complete dumbass and 
+    // now we gotta create do batch dispatches all at once to initate every selector like
+    // const  { artistsFromAPI }  = useSelector(state => state.data);
+    // and apparentyly each of these need all to be dispatched very lost right now :)
+    // Moving over to Redux Toolkit for this reason above.
+
+
     getArtists();
     getAlbums();
     getSongs();
